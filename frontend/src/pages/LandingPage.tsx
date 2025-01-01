@@ -242,7 +242,7 @@ const LandingPage = () => {
               }}>
                 <Box
                   component="img"
-                  src="../public/demo.jpg"
+                  src="../demo.jpg"
                   alt="AnaliSync Demo Ekranı"
                   sx={{
                     width: '100%',
