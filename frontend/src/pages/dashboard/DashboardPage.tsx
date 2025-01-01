@@ -1,8 +1,18 @@
 import { Box, Grid, Paper, Typography } from '@mui/material';
+import { Helmet } from 'react-helmet-async';
 
 const DashboardPage = () => {
   return (
     <Box>
+      <Helmet>
+        <title>Dashboard | AnaliSync</title>
+        <meta name="description" content="AnaliSync dashboard'unuzda web sitenizin analiz sonuçlarını görüntüleyin, raporları inceleyin ve içerik önerilerini değerlendirin." />
+        <meta name="robots" content="noindex, nofollow" />
+        <meta property="og:title" content="Dashboard | AnaliSync" />
+        <meta property="og:description" content="Web sitenizin analiz sonuçlarını görüntüleyin ve içerik önerilerini değerlendirin." />
+        <meta property="og:type" content="website" />
+      </Helmet>
+      
       <Typography variant="h4" gutterBottom>
         Dashboard
       </Typography>

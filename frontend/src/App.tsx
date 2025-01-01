@@ -8,73 +8,74 @@ import RegisterPage from './pages/auth/RegisterPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import AnalysisPage from './pages/analysis/AnalysisPage';
 import LandingPage from './pages/LandingPage';
+import { HelmetProvider } from 'react-helmet-async';
 
 // Tema ayarları
 const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#94A3B8', // Slate-400
-      light: '#CBD5E1', // Slate-300
-      dark: '#64748B'  // Slate-500
+      main: '#FF0043',
+      light: '#FF4D7F',
+      dark: '#CC0036'
     },
     secondary: {
-      main: '#F59E0B', // Amber-500
-      light: '#FCD34D', // Amber-300
-      dark: '#D97706'  // Amber-600
+      main: '#FF0043',
+      light: '#FF4D7F',
+      dark: '#CC0036'
     },
     background: {
-      default: '#0F172A', // Slate-900
-      paper: '#1E293B'    // Slate-800
+      default: '#0A0A0A',
+      paper: '#141414'
     },
     text: {
-      primary: '#E2E8F0',   // Slate-200
-      secondary: '#94A3B8'  // Slate-400
+      primary: '#FFFFFF',
+      secondary: '#B3B3B3'
     },
     error: {
-      main: '#F87171',      // Red-400
-      light: '#FCA5A5',     // Red-300
-      dark: '#EF4444'       // Red-500
+      main: '#FF3D3D',
+      light: '#FF6666',
+      dark: '#CC3333'
     },
     warning: {
-      main: '#FBBF24',      // Amber-400
-      light: '#FCD34D',     // Amber-300
-      dark: '#F59E0B'       // Amber-500
+      main: '#FFA726',
+      light: '#FFB74D',
+      dark: '#F57C00'
     },
     info: {
-      main: '#60A5FA',      // Blue-400
-      light: '#93C5FD',     // Blue-300
-      dark: '#3B82F6'       // Blue-500
+      main: '#29B6F6',
+      light: '#4FC3F7',
+      dark: '#0288D1'
     },
     success: {
-      main: '#34D399',      // Emerald-400
-      light: '#6EE7B7',     // Emerald-300
-      dark: '#10B981'       // Emerald-500
+      main: '#66BB6A',
+      light: '#81C784',
+      dark: '#388E3C'
     },
-    divider: 'rgba(148, 163, 184, 0.12)' // Slate-400 with opacity
+    divider: 'rgba(255, 0, 67, 0.12)'
   },
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
       fontSize: '2.5rem',
       fontWeight: 500,
-      color: '#E2E8F0' // Slate-200
+      color: '#FFFFFF'
     },
     h2: {
       fontSize: '2rem',
       fontWeight: 500,
-      color: '#E2E8F0' // Slate-200
+      color: '#FFFFFF'
     },
     h3: {
       fontSize: '1.75rem',
       fontWeight: 500,
-      color: '#E2E8F0' // Slate-200
+      color: '#FFFFFF'
     },
     body1: {
-      color: '#CBD5E1' // Slate-300
+      color: '#E0E0E0'
     },
     body2: {
-      color: '#94A3B8' // Slate-400
+      color: '#B3B3B3'
     }
   },
   components: {
@@ -100,22 +101,25 @@ function App() {
   const isAuthenticated = useSelector((state: RootState) => state.auth.token !== null);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Routes>
-          {/* Public routes */}
-          <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <LandingPage />} />
-          <Route path="/login" element={isAuthenticated ? <Navigate to="/dashboard" /> : <LoginPage />} />
-          <Route path="/register" element={isAuthenticated ? <Navigate to="/dashboard" /> : <RegisterPage />} />
+    <HelmetProvider>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Routes>
+            {/* Public routes */}
+            <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <LandingPage />} />
+            <Route path="/login" element={isAuthenticated ? <Navigate to="/dashboard" /> : <LoginPage />} />
+            <Route path="/register" element={isAuthenticated ? <Navigate to="/login" /> : <RegisterPage />} />
 
-          {/* Protected routes */}
-          <Route path="/" element={isAuthenticated ? <MainLayout /> : <Navigate to="/login" />}>
-            <Route path="dashboard" element={<DashboardPage />} />
-            <Route path="analysis" element={<AnalysisPage />} />
-          </Route>
-        </Routes>
-      </Router>
-    </ThemeProvider>
+            {/* Protected routes */}
+            <Route element={isAuthenticated ? <MainLayout /> : <Navigate to="/login" />}>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/analysis" element={<AnalysisPage />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Route>
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }
 

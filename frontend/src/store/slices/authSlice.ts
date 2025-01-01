@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { authService } from '../../services/auth.service';
 import { AxiosError } from 'axios';
 
@@ -15,13 +15,15 @@ interface AuthState {
   token: string | null;
   loading: boolean;
   error: string | null;
+  successMessage: string | null;
 }
 
 const initialState: AuthState = {
   user: null,
   token: localStorage.getItem('token'),
   loading: false,
-  error: null
+  error: null,
+  successMessage: null
 };
 
 export const login = createAsyncThunk(
@@ -82,14 +84,21 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    clearError: (state) => {
+      state.error = null;
+    },
+    setSuccessMessage: (state, action: PayloadAction<string>) => {
+      state.successMessage = action.payload;
+    },
+    clearSuccessMessage: (state) => {
+      state.successMessage = null;
+    },
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.error = null;
-      authService.logout();
-    },
-    clearError: (state) => {
-      state.error = null;
+      state.successMessage = null;
+      localStorage.removeItem('token');
     }
   },
   extraReducers: (builder) => {
@@ -113,16 +122,19 @@ const authSlice = createSlice({
     builder.addCase(register.pending, (state) => {
       state.loading = true;
       state.error = null;
+      state.successMessage = null;
     });
-    builder.addCase(register.fulfilled, (state, action) => {
+    builder.addCase(register.fulfilled, (state) => {
       state.loading = false;
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      localStorage.setItem('token', action.payload.token);
+      state.successMessage = 'Kayıt işleminiz başarıyla tamamlandı. Lütfen giriş yapın.';
+      state.token = null;
+      state.user = null;
+      localStorage.removeItem('token');
     });
     builder.addCase(register.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
+      state.successMessage = null;
     });
 
     // Get Profile
@@ -141,5 +153,5 @@ const authSlice = createSlice({
   }
 });
 
-export const { logout, clearError } = authSlice.actions;
+export const { clearError, setSuccessMessage, clearSuccessMessage, logout } = authSlice.actions;
 export default authSlice.reducer; 

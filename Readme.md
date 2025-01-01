@@ -1,7 +1,7 @@
-# Tone Sync - Website İçerik & Marka Tınısı Analizi
+# AnaliSync - Website İçerik & Marka Tınısı Analizi
 
 ## 🎯 Proje Özeti
-Tone Sync, web sitelerinin içerik kalitesini, marka tutarlılığını ve ton uyumunu yapay zeka ile analiz eden bir SaaS platformudur.
+AnaliSync, web sitelerinin içerik kalitesini, marka tutarlılığını ve ton uyumunu yapay zeka ile analiz eden bir SaaS platformudur.
 
 ## 🛠️ Teknoloji Stack
 

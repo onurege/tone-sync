@@ -17,6 +17,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { createAnalysis, getUserAnalyses } from '../../store/slices/analysisSlice';
 import type { Analysis } from '../../services/analysis.service';
+import { Helmet } from 'react-helmet-async';
 
 const AnalysisPage = () => {
   const dispatch = useAppDispatch();
@@ -134,76 +135,87 @@ const AnalysisPage = () => {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ mt: 4, mb: 4 }}>
-        <Typography variant="h4" gutterBottom>
-          İçerik Analizi
-        </Typography>
+    <Box>
+      <Helmet>
+        <title>İçerik Analizi | AnaliSync</title>
+        <meta name="description" content="Web sitenizin içeriklerini analiz edin, SEO performansını ölçün ve marka tutarlılığını değerlendirin. Yapay zeka destekli içerik analizi araçlarını kullanın." />
+        <meta name="robots" content="noindex, nofollow" />
+        <meta property="og:title" content="İçerik Analizi | AnaliSync" />
+        <meta property="og:description" content="Web sitenizin içeriklerini analiz edin ve SEO performansını ölçün." />
+        <meta property="og:type" content="website" />
+      </Helmet>
+      
+      <Container maxWidth="lg">
+        <Box sx={{ mt: 4, mb: 4 }}>
+          <Typography variant="h4" gutterBottom>
+            İçerik Analizi
+          </Typography>
 
-        <Paper elevation={3} sx={{ p: 3, mb: 4 }}>
-          {error && (
-            <Alert severity="error" sx={{ mb: 2 }}>
-              {error}
+          <Paper elevation={3} sx={{ p: 3, mb: 4 }}>
+            {error && (
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {error}
+              </Alert>
+            )}
+
+            <Box component="form" onSubmit={handleSubmit}>
+              <TextField
+                fullWidth
+                label="URL"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                placeholder="https://example.com"
+                disabled={loading}
+                sx={{ mb: 2 }}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={loading || !url}
+                startIcon={loading && <CircularProgress size={20} />}
+              >
+                Analiz Et
+              </Button>
+            </Box>
+          </Paper>
+
+          <Typography variant="h5" gutterBottom>
+            Analizlerim
+          </Typography>
+
+          {analyses.length === 0 ? (
+            <Alert severity="info">
+              Henüz bir analiz yapmadınız. URL girerek yeni bir analiz başlatabilirsiniz.
             </Alert>
-          )}
-
-          <Box component="form" onSubmit={handleSubmit}>
-            <TextField
-              fullWidth
-              label="URL"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              placeholder="https://example.com"
-              disabled={loading}
-              sx={{ mb: 2 }}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              disabled={loading || !url}
-              startIcon={loading && <CircularProgress size={20} />}
-            >
-              Analiz Et
-            </Button>
-          </Box>
-        </Paper>
-
-        <Typography variant="h5" gutterBottom>
-          Analizlerim
-        </Typography>
-
-        {analyses.length === 0 ? (
-          <Alert severity="info">
-            Henüz bir analiz yapmadınız. URL girerek yeni bir analiz başlatabilirsiniz.
-          </Alert>
-        ) : (
-          <Stack spacing={3}>
-            {analyses.map((analysis) => (
-              <Paper elevation={2} sx={{ p: 3 }} key={analysis.id}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                  <Typography variant="h6" component="div" sx={{ wordBreak: 'break-all' }}>
-                    {analysis.url}
+          ) : (
+            <Stack spacing={3}>
+              {analyses.map((analysis) => (
+                <Paper elevation={2} sx={{ p: 3 }} key={analysis.id}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                    <Typography variant="h6" component="div" sx={{ wordBreak: 'break-all' }}>
+                      {analysis.url}
+                    </Typography>
+                    {renderAnalysisStatus(analysis.status)}
+                  </Box>
+                  
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    {new Date(analysis.createdAt).toLocaleString()}
                   </Typography>
-                  {renderAnalysisStatus(analysis.status)}
-                </Box>
-                
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  {new Date(analysis.createdAt).toLocaleString()}
-                </Typography>
 
-                {analysis.error && (
-                  <Alert severity="error" sx={{ mt: 2 }}>
-                    {analysis.error}
-                  </Alert>
-                )}
+                  {analysis.error && (
+                    <Alert severity="error" sx={{ mt: 2 }}>
+                      {analysis.error}
+                    </Alert>
+                  )}
 
-                {renderAnalysisResults(analysis)}
-              </Paper>
-            ))}
-          </Stack>
-        )}
-      </Box>
-    </Container>
+                  {renderAnalysisResults(analysis)}
+                </Paper>
+              ))}
+            </Stack>
+          )}
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

@@ -1,5 +1,6 @@
-import { Box, Button, Container, Typography, Grid, Paper, Divider } from '@mui/material';
+import { Box, Button, Container, Typography, Paper, Divider, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import SecurityIcon from '@mui/icons-material/Security';
 import SpeedIcon from '@mui/icons-material/Speed';
@@ -74,6 +75,89 @@ const LandingPage = () => {
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+      <Helmet>
+        <title>AnaliSync - Yapay Zeka ile Web Site İçerik ve SEO Analizi | AI SEO Aracı</title>
+        <meta name="description" content="AnaliSync, yapay zeka destekli web site içerik analizi ve SEO optimizasyon aracı. İçerik kalitesi, SEO uyumluluğu, marka tutarlılığı analizleri ve öneriler. Ücretsiz deneyin!" />
+        <meta name="keywords" content="yapay zeka seo analizi, ai içerik analizi, web site analizi, seo optimizasyonu, içerik kalitesi, marka tutarlılığı, seo araçları, yapay zeka seo, web site seo analizi, içerik optimizasyonu, türkçe seo aracı, ücretsiz seo analizi" />
+        <meta property="og:title" content="AnaliSync - Yapay Zeka ile Web Site İçerik ve SEO Analizi" />
+        <meta property="og:description" content="Yapay zeka destekli SEO ve içerik analizi aracı. Web sitenizin içerik kalitesini artırın, SEO performansınızı yükseltin." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://analisync.com" />
+        <meta property="og:image" content="/og-image.png" />
+        <link rel="canonical" href="https://analisync.com" />
+        
+        {/* Ek SEO meta etiketleri */}
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="author" content="AnaliSync" />
+        <meta name="language" content="Turkish" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="rating" content="General" />
+        
+        {/* Yapısal veri işaretlemesi */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "AnaliSync",
+              "applicationCategory": "SEO Software",
+              "description": "Yapay zeka destekli web site içerik analizi ve SEO optimizasyon aracı",
+              "operatingSystem": "Web-based",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "TRY"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "ratingCount": "150"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
+
+      {/* Header with Logo */}
+      <Box sx={{ 
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        p: 3,
+        zIndex: 1100,
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 2
+      }}
+      onClick={() => navigate('/')}
+      >
+        <Box
+          component="img"
+          src="/logo.png"
+          alt="AnaliSync Logo"
+          sx={{
+            height: 45,
+            width: 45,
+            borderRadius: 2,
+            filter: 'none' // Filtreyi kaldırıyoruz
+          }}
+        />
+        <Typography 
+          variant="h6" 
+          sx={{
+            background: 'linear-gradient(45deg, #FF0043 30%, #FF4D7F 90%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            fontWeight: 'bold',
+            letterSpacing: 1
+          }}
+        >
+          AnaliSync
+        </Typography>
+      </Box>
+
       {/* Hero Section */}
       <Box sx={{ 
         bgcolor: 'background.paper', 
@@ -83,26 +167,35 @@ const LandingPage = () => {
         borderColor: 'divider'
       }}>
         <Container maxWidth="lg">
-          <Grid container spacing={4} alignItems="center">
+          <Grid container spacing={4}>
             <Grid item xs={12} md={6}>
               <Typography 
-                variant="h2" 
+                variant="h1" 
                 component="h1" 
                 gutterBottom
                 sx={{ 
-                  background: 'linear-gradient(45deg, #CBD5E1 30%, #F59E0B 90%)',
+                  fontWeight: 'bold',
+                  background: 'linear-gradient(45deg, #FF0043 30%, #FF4D7F 90%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent'
                 }}
               >
-                Tone Sync
+                Yapay Zeka ile SEO ve İçerik Analizi
               </Typography>
-              <Typography variant="h5" paragraph sx={{ color: 'text.secondary' }}>
-                Web içeriklerinizi yapay zeka ile analiz edin
+              <Typography 
+                variant="h4" 
+                component="h2"
+                sx={{ 
+                  color: 'text.secondary',
+                  mb: 3 
+                }}
+              >
+                Web Sitenizin SEO ve İçerik Performansını Artırın
               </Typography>
               <Typography variant="body1" paragraph sx={{ color: 'text.secondary', mb: 4 }}>
-                Tone Sync, web sitenizin içerik tonunu, duygusunu ve kalitesini analiz ederek 
-                daha etkili içerikler oluşturmanıza yardımcı olur.
+                AnaliSync, yapay zeka teknolojisi ile web sitenizin SEO performansını analiz eder, 
+                içerik kalitesini değerlendirir ve marka tutarlılığını ölçer. Detaylı raporlar ve 
+                önerilerle web sitenizin arama motorlarındaki sıralamasını yükseltin.
               </Typography>
               <Box sx={{ mt: 4 }}>
                 <Button 
@@ -137,17 +230,30 @@ const LandingPage = () => {
             <Grid item xs={12} md={6}>
               <Box sx={{ 
                 width: '100%', 
-                height: 400, 
+                height: 400,
                 bgcolor: 'background.default',
                 borderRadius: 4,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 border: 1,
-                borderColor: 'divider'
+                borderColor: 'divider',
+                overflow: 'hidden'
               }}>
-                {/* Buraya bir görsel veya animasyon eklenebilir */}
-                <Typography variant="h4" sx={{ color: 'text.secondary' }}>Demo Görsel</Typography>
+                <Box
+                  component="img"
+                  src="../public/demo.jpg"
+                  alt="AnaliSync Demo Ekranı"
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    transition: 'transform 0.3s ease-in-out',
+                    '&:hover': {
+                      transform: 'scale(1.02)'
+                    }
+                  }}
+                />
               </Box>
             </Grid>
           </Grid>
@@ -299,37 +405,41 @@ const LandingPage = () => {
         borderColor: 'divider'
       }}>
         <Container maxWidth="lg">
-          <Typography 
-            variant="h4" 
-            align="center" 
-            gutterBottom
-            sx={{ 
-              mb: 2,
-              background: 'linear-gradient(45deg, #CBD5E1 30%, #F59E0B 90%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
-            }}
-          >
-            Hemen Başlayın
-          </Typography>
-          <Typography variant="body1" align="center" paragraph sx={{ color: 'text.secondary', mb: 4 }}>
-            Web içeriklerinizi analiz etmek için ücretsiz hesap oluşturun.
-          </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-            <Button 
-              variant="contained" 
-              color="secondary" 
-              size="large"
-              onClick={() => navigate('/register')}
-              sx={{ 
-                px: 6,
-                py: 2,
-                fontSize: '1.1rem'
-              }}
-            >
-              Ücretsiz Hesap Oluştur
-            </Button>
-          </Box>
+          <Grid container spacing={4}>
+            <Grid item xs={12}>
+              <Typography 
+                variant="h4" 
+                align="center" 
+                gutterBottom
+                sx={{ 
+                  mb: 2,
+                  background: 'linear-gradient(45deg, #CBD5E1 30%, #F59E0B 90%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }}
+              >
+                Hemen Başlayın
+              </Typography>
+              <Typography variant="body1" align="center" paragraph sx={{ color: 'text.secondary', mb: 4 }}>
+                Web içeriklerinizi analiz etmek için ücretsiz hesap oluşturun.
+              </Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+                <Button 
+                  variant="contained" 
+                  color="secondary" 
+                  size="large"
+                  onClick={() => navigate('/register')}
+                  sx={{ 
+                    px: 6,
+                    py: 2,
+                    fontSize: '1.1rem'
+                  }}
+                >
+                  Ücretsiz Hesap Oluştur
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
         </Container>
       </Box>
     </Box>

@@ -52,20 +52,49 @@ const MainLayout = () => {
 
   const drawer = (
     <Box>
-      <Toolbar>
-        <Typography variant="h6" noWrap component="div">
-          Tone Sync
+      <Toolbar sx={{ 
+        borderBottom: 1, 
+        borderColor: 'divider',
+        background: 'linear-gradient(45deg, rgba(255, 0, 67, 0.03) 30%, rgba(255, 0, 67, 0.08) 90%)'
+      }}>
+        <Typography 
+          variant="h6" 
+          noWrap 
+          component="div"
+          sx={{
+            background: 'linear-gradient(45deg, #FF0043 30%, #FF4D7F 90%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            fontWeight: 'bold'
+          }}
+        >
+          AnaliSync
         </Typography>
       </Toolbar>
-      <List>
+      <List sx={{ px: 2, py: 1 }}>
         {menuItems.map((item) => (
           <ListItem
             key={item.text}
             component={RouterLink}
             to={item.path}
-            sx={{ textDecoration: 'none', color: 'inherit' }}
+            sx={{ 
+              textDecoration: 'none', 
+              color: 'inherit',
+              borderRadius: 2,
+              mb: 1,
+              '&:hover': {
+                bgcolor: 'rgba(255, 0, 67, 0.08)',
+              }
+            }}
           >
-            <ListItemText primary={item.text} />
+            <ListItemText 
+              primary={item.text} 
+              sx={{
+                '& .MuiTypography-root': {
+                  fontWeight: 500
+                }
+              }}
+            />
           </ListItem>
         ))}
       </List>
@@ -77,7 +106,14 @@ const MainLayout = () => {
       <CssBaseline />
       <AppBar
         position="fixed"
-        sx={{ width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` }, ml: { sm: `${DRAWER_WIDTH}px` } }}
+        elevation={0}
+        sx={{ 
+          width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` }, 
+          ml: { sm: `${DRAWER_WIDTH}px` },
+          bgcolor: 'background.paper',
+          borderBottom: 1,
+          borderColor: 'divider'
+        }}
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <IconButton
@@ -89,20 +125,38 @@ const MainLayout = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Tone Sync Panel
+          <Typography 
+            variant="h6" 
+            noWrap 
+            component="div"
+            sx={{
+              background: 'linear-gradient(45deg, #FF0043 30%, #FF4D7F 90%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              fontWeight: 'bold'
+            }}
+          >
+            AnaliSync Panel
           </Typography>
           
           {token ? (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <IconButton
                 onClick={handleMenuOpen}
-                sx={{ padding: 0.5 }}
+                sx={{ 
+                  padding: 0.5,
+                  '&:hover': {
+                    bgcolor: 'rgba(255, 0, 67, 0.08)'
+                  }
+                }}
                 aria-controls="user-menu"
                 aria-haspopup="true"
               >
-                <Avatar sx={{ bgcolor: 'secondary.main' }}>
-                  {user?.name?.charAt(0).toUpperCase()}
+                <Avatar sx={{ 
+                  bgcolor: '#FF0043',
+                  fontWeight: 'bold'
+                }}>
+                  {user?.name ? user.name.charAt(0).toUpperCase() : '?'}
                 </Avatar>
               </IconButton>
               <Menu
@@ -118,6 +172,25 @@ const MainLayout = () => {
                   vertical: 'top',
                   horizontal: 'right',
                 }}
+                PaperProps={{
+                  elevation: 0,
+                  sx: {
+                    border: 1,
+                    borderColor: 'divider',
+                    borderRadius: 2,
+                    mt: 1,
+                    '& .MuiMenuItem-root': {
+                      px: 2,
+                      py: 1,
+                      borderRadius: 1,
+                      mx: 0.5,
+                      my: 0.25,
+                      '&:hover': {
+                        bgcolor: 'rgba(255, 0, 67, 0.08)'
+                      }
+                    }
+                  }
+                }}
               >
                 <MenuItem onClick={handleProfile}>Profil</MenuItem>
                 <MenuItem onClick={handleLogout}>Çıkış Yap</MenuItem>
@@ -129,7 +202,14 @@ const MainLayout = () => {
                 component={RouterLink}
                 to="/login"
                 color="inherit"
-                sx={{ mr: 2 }}
+                sx={{ 
+                  mr: 2,
+                  px: 3,
+                  borderRadius: 2,
+                  '&:hover': {
+                    bgcolor: 'rgba(255, 0, 67, 0.08)'
+                  }
+                }}
               >
                 Giriş Yap
               </Button>
@@ -138,6 +218,15 @@ const MainLayout = () => {
                 to="/register"
                 color="inherit"
                 variant="outlined"
+                sx={{ 
+                  px: 3,
+                  borderRadius: 2,
+                  borderColor: '#FF0043',
+                  '&:hover': {
+                    borderColor: '#FF4D7F',
+                    bgcolor: 'rgba(255, 0, 67, 0.08)'
+                  }
+                }}
               >
                 Kayıt Ol
               </Button>
@@ -159,7 +248,13 @@ const MainLayout = () => {
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: DRAWER_WIDTH },
+            '& .MuiDrawer-paper': { 
+              boxSizing: 'border-box', 
+              width: DRAWER_WIDTH,
+              bgcolor: 'background.paper',
+              borderRight: 1,
+              borderColor: 'divider'
+            },
           }}
         >
           {drawer}
@@ -168,7 +263,13 @@ const MainLayout = () => {
           variant="permanent"
           sx={{
             display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: DRAWER_WIDTH },
+            '& .MuiDrawer-paper': { 
+              boxSizing: 'border-box', 
+              width: DRAWER_WIDTH,
+              bgcolor: 'background.paper',
+              borderRight: 1,
+              borderColor: 'divider'
+            },
           }}
           open
         >
@@ -182,7 +283,9 @@ const MainLayout = () => {
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
-          mt: '64px'
+          mt: '64px',
+          bgcolor: 'background.default',
+          minHeight: '100vh'
         }}
       >
         <Outlet />
